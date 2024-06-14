@@ -1,0 +1,7 @@
+.idea/
+.idea
+bin/
+logs/
+*.log
+dist/
+data/

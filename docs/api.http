@@ -1,0 +1,16 @@
+
+### 获取命令空间
+GET {{host}}/api/v1/k8s/namespaces
+Content-Type: application/json
+
+
+### 创建命名空间
+POST {{host}}/api/v1/k8s/namespace
+Content-Type: application/json
+
+{
+  "name": "ns-test-2",
+  "labels": {
+    "env": "test"
+  }
+}

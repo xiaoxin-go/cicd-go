@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/object-diagram
+
+object Tenement{
+    id int
+    name string
+}
+
+object Namespace{
+    id int
+    tenement_id int
+    name string
+    labels map[string]string
+}
+
+Tenement::id <-- Namespace::tenement_id
+
+object App{
+    id int
+    tenement_id int
+    namespace_id int
+    name string
+    desc string
+    version string
+    app_type string
+}
+
+Namespace::id <-- App::namespace_id
+
+object AppService{
+    id int
+    app_id int
+    resource_template_id int
+    config_template_id int
+    healthcheck_template_id int
+    name string
+    config_version string
+}
+App::id <-- AppService::app_id
+
+object Config
+
+@enduml

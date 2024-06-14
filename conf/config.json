@@ -1,0 +1,36 @@
+{
+  "env": "prod",
+  "port": "8030",
+  "aes_key": "sAd700a2cs3c3ea65d882d9307da7eb6",
+  "log": {
+    "level": "DEBUG",
+    "filename": "logs/app.log",
+    "max_size": 50,
+    "max_age": 5,
+    "max_backups": 5
+  },
+  "mysql":{
+    "host": "127.0.0.1",
+    "port": "3306",
+    "user": "root",
+    "password": "xiaoxin",
+    "db_name": "devops_cicd"
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": "6379",
+    "db": 0
+  },
+  "kafka": {
+    "bootstrap_servers": [""],
+    "topic": "",
+    "key": "netops"
+  },
+  "minio": {
+    "endpoint": "127.0.0.1:9000",
+    "access_key": "",
+    "secret_key": "",
+    "bucket": "netops",
+    "secure": false
+  }
+}
