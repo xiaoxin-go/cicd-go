@@ -19,7 +19,9 @@ func NewAppHandler() *AppHandler {
 		return &[]*model.TApp{}
 	}
 	handler.Validate = func(data any) error {
-		app := data.(model.TApp)
+		fmt.Println("data: ", data)
+		app := data.(*model.TApp)
+		fmt.Println("app: ", app)
 		if app.ServiceType != model.ServiceTypeStateless && app.ServiceType != model.ServiceTypeStated {
 			return fmt.Errorf("service_type must be %s or %s, not %s", model.ServiceTypeStated, model.ServiceTypeStateless, app.ServiceType)
 		}

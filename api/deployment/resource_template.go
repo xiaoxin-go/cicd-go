@@ -19,7 +19,7 @@ func NewResourceTemplateHandler() *ResourceTemplateHandler {
 		return &[]*model.TResourceTemplate{}
 	}
 	handler.Validate = func(data any) error {
-		resourceTemplate := data.(model.TResourceTemplate)
+		resourceTemplate := data.(*model.TResourceTemplate)
 		if resourceTemplate.MemoryUnit != model.MemoryUnitMi && resourceTemplate.MemoryUnit != model.MemoryUnitGi {
 			return fmt.Errorf("memory_unit must be %s or %s, not %s", model.MemoryUnitMi, model.MemoryUnitGi, resourceTemplate.MemoryUnit)
 		}

@@ -175,10 +175,16 @@ func (c *Controller) Create(ctx *gin.Context) {
 	if c.Validate != nil {
 		if err := c.Validate(m); err != nil {
 			HttpParamsError(ctx, fmt.Sprintf("params error, %s", err.Error()))
+			return
 		}
 	}
 
-	c.setOperator(ctx, m, "created_by")
+	user, e := GetUser(ctx)
+	if e != nil {
+		HttpAuthorError(ctx, e.Error())
+		return
+	}
+	m.SetCreatedBy(user.Username)
 
 	if err := database.DB.Save(m).Error; err != nil && strings.Contains(err.Error(), "Duplicate entry") {
 		HttpParamsError(ctx, "添加失败：数据已存在")
@@ -303,17 +309,6 @@ func AddLog(ctx *gin.Context, format string, a ...any) {
 	}
 }
 
-// 设置操作人
-func (c *Controller) setOperator(ctx *gin.Context, m any, fieldName string) {
-	te := reflect.ValueOf(m)
-	te = te.Elem()
-	fe := te.FieldByName(fieldName)
-	if fe.IsValid() {
-		operator, _ := ctx.Get("Operator")
-		fe.SetString(operator.(string))
-	}
-}
-
 // 如果数据有is_delete则较删除
 func (c *Controller) softDelete(m any) bool {
 	te := reflect.ValueOf(m)
@@ -343,6 +338,8 @@ func GetUser(ctx *gin.Context) (*model.TUser, error) {
 	user := &model.TUser{}
 	if conf.Config.Env == "test" {
 		user.Id = 1
+		user.Username = "admin"
+		return user, nil
 	} else {
 		sessionId, err := ctx.Cookie(conf.SessionKey)
 		fmt.Println("sessionId------------->:", sessionId)

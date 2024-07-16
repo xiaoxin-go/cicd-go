@@ -90,6 +90,9 @@ func CreateDeploy() {
 				coreapiv1.ResourceMemory: resourceMustParse("128Mi"),
 			},
 		},
+		LivenessProbe:  &coreapiv1.Probe{},
+		ReadinessProbe: &coreapiv1.Probe{},
+		StartupProbe:   &coreapiv1.Probe{},
 	}
 	deploy.Spec.Template.Spec.Containers = []coreapiv1.Container{
 		container,

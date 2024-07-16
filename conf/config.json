@@ -1,5 +1,5 @@
 {
-  "env": "prod",
+  "env": "test",
   "port": "8030",
   "aes_key": "sAd700a2cs3c3ea65d882d9307da7eb6",
   "log": {
